@@ -24,15 +24,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class OrderController {
 	
 	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
-	private OrderRepo orderRepo;
+	private OrderService orderService;
 
-	public OrderController(OrderRepo orderRepo) {
-		this.orderRepo = orderRepo;
+	public OrderController(OrderService orderService) {
+		this.orderService = orderService;
 	}
 	
 	@GetMapping("/order/{id}")
 	public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) {
-		Order order = orderRepo.findOne(id);
+		Order order = orderService.getOrder(id);
 		if (order != null) {
 			return ResponseEntity.ok(order);
 		}
@@ -41,13 +41,7 @@ public class OrderController {
 	
 	@PostMapping("/order")
 	public ResponseEntity<Void> setRating(@RequestBody OrderSubmission orderSubmission) {
-		Order order = new Order();
-		for (String productId : orderSubmission.getItems().keySet()) {
-			order.getItems().add(new Transaction(productId,orderSubmission.getItems().get(productId)));
-		}
-		order.setTransactionDate(orderSubmission.getTransactionDate());
-		order.setCustomerId(orderSubmission.getCustomerId());
-		Order savedOrder = orderRepo.save(order);
+		Order savedOrder = orderService.saveOrder(orderSubmission);
 		if (savedOrder == null) {
 			log.error("Unable to save: " + orderSubmission);
 			return ResponseEntity.noContent().build();
