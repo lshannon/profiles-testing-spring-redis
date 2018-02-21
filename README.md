@@ -1,8 +1,12 @@
 # Sample Description
 
-This sample is a Redis backed basic Spring Boot application that uses Spring Data Redis (Repositories) to perform CRUD operations and Spring MVC to exposes the data via REST endpoints.
+This sample explores ways of working with a Redis dependancy when developing, testing and deploying to PCF.
 
-For Redis this sample uses an Embedded Redis as the local/dev store and a Service broker provisioned Redis on Pivotal Web Services (PWS).
+A few key concepts explored here from a Spring points of view.
+
+1. Creating a Components with Spring
+2. Using Profiles to determine what components wired together when the application runs
+3. Working with MockMVC in a test case
 
 ## Testing Profile
 
