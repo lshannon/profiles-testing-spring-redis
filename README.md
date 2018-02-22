@@ -1,37 +1,43 @@
-# Sample Description
+# Introduction
 
-This sample explores ways of working with a Redis dependancy when developing, testing and deploying to PCF.
+This sample explores ways of working with a Redis dependancy when developing, testing and deploying to PCF. Within this samples some other key concepts of Core Spring are explored:
 
-A few key concepts explored here from a Spring points of view.
-
-1. Creating a Components with Spring
-2. Using Profiles to determine what components wired together when the application runs
-3. Working with MockMVC in a test case
+1. Creating a Components with Spring and customizing it's life cycle
+2. Using Profiles to determine what components are wired together when the application runs
+3. Working with MockMVC in test cases
 4. Getting values from properties file
+5. Working with Cloud Services in PCF
+6. Working with Redis with Spring Data Repositories
 
-## Testing Profile
+A key aspect in this application is placing the Spring Data Redis Repository in a Service class. 
 
-When running tests, the 'testing' profile is set. This profile creates a ConnectionFactory pointed at the Embedded Server. The EmbeddedRedis components wraps the redis.embedded.RedisServer and manages its life cycle using @PostConstruct and @PreDestroy. It gets the properties from the application.properties file using @Value
+## Running with an Embedded Redis Process
+
+When running the 'EmbeddedRedisControllerTest' test, a ConnectionFactory is created (based on setting the 'test'profile) that points to the Embedded Server. The EmbeddedRedis components wraps the redis.embedded.RedisServer, its injected into the ConnectionFactory bean and manages the Redis life cycle using @PostConstruct and @PreDestroy annotation.
+
+Is an Embedded Redis for testing a good idea?
 
 ### Pros
 
-- Redis is included with the application
-- Tests run against Redis in any environment
+- Redis is included with the application, this means a CI/CD creating new environments with each build can run the tests
+- Tests run against an actual Redis process
 
 ### Cons
 
-- Extra dependancies and configuration
-- Managed Redis does not always shut down cleanly
+- Requires extra dependancies and configuration
+- Managed Redis does not always shut down cleanly - can have hanging processes
 
-## Dev Profile
+## Running with an Installed Redis
 
-This is when running the application locally (manual testing perhaps) and you wish to use an Redis you have installed and configured outside of the application. This creates a RedisConnectionFactory that points to the installed Redis. The port for the installed Redis is configured in the application.properties file
+In many cases the Developer has Redis running on Docker or as a local processing (ie: brew). A developer may wish to run tests against this. The 'InstalledRedisControllerTest' demonstrates this. Its sets a 'dev' profile that creates a RedisConnectionFactory pointing to the installed Redis. The port for the installed Redis is configured in the application.properties file with the installed.redis.port key
 
-## Cloud Profile
+## Running On PCF
 
-This profile is set when the application runs in PCF. It looks for a Redis service defined in the space the application is running
+Running on PCF is the easiest. Thanks to the Spring Cloud Connectors project, a Redis service just needs to be bound to the application. The manifest.yml has a services properties where the Redis service can be specified
 
-## Mocking
+## Mocking The Redis
+
+
 
 
 
