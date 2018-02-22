@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Order {
 	
 	@Id
-	private Long id = new Date().getTime();
+	private Long id;
 	private String customerId;
 	private List<Transaction> items = new ArrayList<Transaction>();
 	private Date transactionDate;
