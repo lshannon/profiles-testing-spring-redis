@@ -1,5 +1,7 @@
 # Introduction
 
+
+
 This sample explores ways of working with a Redis dependancy when developing, testing and deploying to PCF. Within this samples some other key concepts of Core Spring are explored:
 
 1. Creating a Components with Spring and customizing it's life cycle
