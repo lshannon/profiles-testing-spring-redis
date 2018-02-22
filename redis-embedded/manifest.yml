@@ -1,0 +1,8 @@
+---
+applications:
+- name: redis-embedded
+  memory: 1024M
+  buildpack: java_buildpack
+  random-route: true
+  services:
+  - orders
