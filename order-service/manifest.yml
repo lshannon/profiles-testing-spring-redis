@@ -4,5 +4,6 @@ applications:
   memory: 1024M
   buildpack: java_buildpack
   random-route: true
+  path: target/order-service.jar
   services:
   - orders
