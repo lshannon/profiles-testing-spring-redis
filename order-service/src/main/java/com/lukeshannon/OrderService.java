@@ -18,12 +18,17 @@ public class OrderService {
 		}
 		order.setTransactionDate(orderSubmission.getTransactionDate());
 		order.setCustomerId(orderSubmission.getCustomerId());
+		order.setId(orderSubmission.getId());
 		Order savedOrder = orderRepo.save(order);
 		return savedOrder;
 	}
 	
 	public Order getOrder(Long id) {
 		return orderRepo.findOne(id);
+	}
+	
+	public Iterable<Order> getAllOrders() {
+		return orderRepo.findAll();
 	}
 	
 }

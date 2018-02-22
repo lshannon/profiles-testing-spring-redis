@@ -39,6 +39,15 @@ public class OrderController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping("/orders")
+	public ResponseEntity<Iterable<Order>> getAllOrders() {
+		Iterable<Order> order = orderService.getAllOrders();
+		if (order != null) {
+			return ResponseEntity.ok(order);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
 	@PostMapping("/order")
 	public ResponseEntity<Void> setRating(@RequestBody OrderSubmission orderSubmission) {
 		Order savedOrder = orderService.saveOrder(orderSubmission);

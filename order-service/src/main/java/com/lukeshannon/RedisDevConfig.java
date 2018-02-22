@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 @Configuration
 @Profile("dev")
@@ -16,9 +16,12 @@ public class RedisDevConfig {
 	private static final Logger log = LoggerFactory.getLogger(RedisDevConfig.class);
 	
 	@Bean
-	RedisConnectionFactory connectionFactory(@Value("${installed.redis.port}") final int redisPort) {
+	RedisConnectionFactory connectionFactory(@Value("${installed.redis.port}") final int redisPort,@Value("${installed.redis.host}") String host) {
 		log.info("Connecting to the the Installed Redis on ports: " + redisPort);
-		return new LettuceConnectionFactory("127.0.0.1", redisPort);
+		JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
+		connectionFactory.setHostName(host);
+		connectionFactory.setPort(redisPort);
+		return connectionFactory;
 	}
 
 }

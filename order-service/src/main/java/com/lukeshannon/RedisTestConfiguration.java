@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 /*
  * https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html#boot-features-testing-spring-boot-applications-detecting-config
@@ -20,7 +20,10 @@ public class RedisTestConfiguration {
 	@Bean
 	RedisConnectionFactory redisConnectionFactory(EmbeddedRedis embeddedRedisServer) {
 		log.info("Creating a Redis Connection Factory to embedded Redis");
-		return new LettuceConnectionFactory("127.0.0.1", embeddedRedisServer.getRedisPort());
+		JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
+		connectionFactory.setHostName("localhost");
+		connectionFactory.setPort(embeddedRedisServer.getRedisPort());
+		return connectionFactory;
 	}
 
 }
