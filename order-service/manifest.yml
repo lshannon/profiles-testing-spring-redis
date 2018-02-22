@@ -1,6 +1,6 @@
 ---
 applications:
-- name: redis-embedded
+- name: order-service
   memory: 1024M
   buildpack: java_buildpack
   random-route: true
