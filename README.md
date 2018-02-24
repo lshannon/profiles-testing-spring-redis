@@ -72,19 +72,19 @@ Thanks to the Spring Cloud Connectors project, a Redis service just needs to be 
 ```shell
 
 <!-- Starting PCF Connector Dependancies -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-spring-service-connector</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-localconfig-connector</artifactId>
-		</dependency>
-		<!-- End PCF Connector Dependancies -->
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-spring-service-connector</artifactId>
+</dependency>
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+</dependency>
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-localconfig-connector</artifactId>
+</dependency>
+<!-- End PCF Connector Dependancies -->
 
 ```
 
